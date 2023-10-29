@@ -74,5 +74,51 @@ namespace Marketo.UI.Areas.Admin.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null || id == 0) return NotFound();
+            Slider slider = await _context.Sliders.Include(s=>s.OrderItemNumber).FirstOrDefaultAsync(s => s.Id == id);
+            if (slider == null) return NotFound();
+            List<OrderItemNumber> orderItemNumbers = new List<OrderItemNumber>();
+
+            List<OrderItemNumber> numbers = _context.Numbers
+            .Include(n => n.slider)
+            .Where(number => number.slider.Count == 0)
+            .ToList();
+            orderItemNumbers.AddRange(numbers);
+            orderItemNumbers.Add(slider.OrderItemNumber);
+            ViewBag.Description = orderItemNumbers;
+            return View(slider);
+        }
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public async Task<IActionResult> Edit(int? id, Slider slider)
+        {
+            if (id == null || id == 0) return NotFound();
+            Slider existed = await _context.Sliders.FindAsync(id);
+            if (existed == null) return NotFound();
+            if (!ModelState.IsValid) return View(slider);
+            if (slider.Photo == null)
+            {
+                string filename = existed.Image;
+                _context.Entry(existed).CurrentValues.SetValues(slider);
+                existed.Image = filename;
+            }
+            else
+            {
+                if (!slider.Photo.ImageIsOkey(3))
+                {
+                    ModelState.AddModelError("Photo", "choose image file");
+                    return View(existed);
+                }
+                FileExtension.FileDelete(_env.WebRootPath, "assets/image", existed.Image);
+                _context.Entry(existed).CurrentValues.SetValues(slider);
+                existed.Image = await slider.Photo.FileCreate(_env.WebRootPath, "assets/image");
+            }
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+
+        }
     }
 }

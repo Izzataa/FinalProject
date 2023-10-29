@@ -1,5 +1,4 @@
-﻿using Marketo.Buisness.Services;
-using Marketo.Core.Entities;
+﻿using Marketo.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Runtime.InteropServices;
 

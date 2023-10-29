@@ -17,11 +17,13 @@ public class HomeController : Controller
     {
         List <Slider> sliders= _context.Sliders.ToList();
         List<Category> categories = _context.Categories.ToList();
+        List<Furniture>furnitures= _context.Furnitures.ToList();
 
         HomeVM vm = new HomeVM
         {
             Sliders = sliders,
             Categories = categories,
+            Furnitures=furnitures,
         };
         return View(vm);
     }
