@@ -25,7 +25,7 @@
         <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div style="background: #f07f13" class="navbar-brand-wrapper d-flex justify-content-center">
                 <div  class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100">
-                    <a  class="navbar-brand brand-logo" asp-area="AdminPanel" asp-controller="Dashboard" >
+                    <a  class="navbar-brand brand-logo" asp-area="Admin" asp-controller="Dashboard" >
                         <img style="width: 100%" src="~/assets/image/logo/@layoutService.getSettings().FirstOrDefault(s=>s.Key.Trim().ToLower() == "logo")?.Value" alt="logo" />
                     </a>
                     <a class="navbar-brand brand-logo-mini" href="index.html"><img src="~/admin/images/logo-mini.svg" alt="logo" /></a>
@@ -41,7 +41,7 @@
                             <i class="mdi mdi-checkbox-marked-circle mx-0"></i>
                             <span style="background: #fff; width:20px; height: 20px; top: 0px;" class="count">@layoutService.GetOrders().Count()</span>
                         </a>*@
-                        <a asp-area="AdminPanel" asp-controller="Contact" class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown">
+                        <a asp-area="Admin" asp-controller="Contact" class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown">
                             <i class="mdi mdi-message-text mx-0"></i>
                             <span style="background: #fff; width:20px; height: 20px; top: 0px;" class="count"></span>
                         </a>
@@ -105,18 +105,7 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="pages/icons/mdi.html" style="color: #4d83ff !important">
-                            <i class="mdi mdi-emoticon menu-icon"></i>
-                            <span class="menu-title">Icons</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="documentation/documentation.html" style="color: #4d83ff !important">
-                            <i class="mdi mdi-file-document-box-outline menu-icon"></i>
-                            <span class="menu-title">Documentation</span>
-                        </a>
-                    </li>
+                  
                 </ul>
             </nav>
             <!-- partial -->
