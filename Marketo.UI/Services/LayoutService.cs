@@ -36,6 +36,22 @@ public class LayoutService
         List<Category> categories = _context.Categories.ToList();
         return categories;
     }
+
+    public int GetFurnitureCategory(int? id)
+    {
+        List<Furniture> furnitures = _context.Furnitures.ToList();
+        Category category = _context.Categories.FirstOrDefault(c => c.Id == id);
+        int count = 0;
+        foreach (var item in furnitures)
+        {
+            if (category.Id == item.CategoryId)
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+
     public async Task<BasketVM> ShowBasket()
     {
         string basket = _http.HttpContext.Request.Cookies["Basket"];
@@ -98,4 +114,5 @@ public class LayoutService
         return basketData;
 
     }
+    
 }
