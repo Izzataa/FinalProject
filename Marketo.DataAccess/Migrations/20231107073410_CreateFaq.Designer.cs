@@ -4,6 +4,7 @@ using Marketo.DataAccess.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Marketo.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231107073410_CreateFaq")]
+    partial class CreateFaq
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,9 +63,6 @@ namespace Marketo.DataAccess.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
-
-                    b.Property<bool>("Active")
-                        .HasColumnType("bit");
 
                     b.Property<bool?>("Admin")
                         .HasColumnType("bit");
@@ -363,36 +362,6 @@ namespace Marketo.DataAccess.Migrations
                     b.HasIndex("FurnitureId");
 
                     b.ToTable("FurnitureImages");
-                });
-
-            modelBuilder.Entity("Marketo.Core.Entities.Message", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("AcceptUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AppUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("CreateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AppUserId");
-
-                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("Marketo.Core.Entities.Order", b =>
@@ -776,17 +745,6 @@ namespace Marketo.DataAccess.Migrations
                     b.Navigation("Furniture");
                 });
 
-            modelBuilder.Entity("Marketo.Core.Entities.Message", b =>
-                {
-                    b.HasOne("Marketo.Core.Entities.AppUser", "AppUser")
-                        .WithMany("Messages")
-                        .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AppUser");
-                });
-
             modelBuilder.Entity("Marketo.Core.Entities.Order", b =>
                 {
                     b.HasOne("Marketo.Core.Entities.AppUser", "AppUser")
@@ -882,8 +840,6 @@ namespace Marketo.DataAccess.Migrations
             modelBuilder.Entity("Marketo.Core.Entities.AppUser", b =>
                 {
                     b.Navigation("BasketItems");
-
-                    b.Navigation("Messages");
 
                     b.Navigation("Orders");
                 });

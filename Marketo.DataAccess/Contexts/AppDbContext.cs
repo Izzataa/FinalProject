@@ -17,6 +17,7 @@ public class AppDbContext : IdentityDbContext<AppUser>
     public DbSet<FurnitureDescription> FurnitureDescriptions { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Rate> Rates { get; set; }
+    public DbSet<Message> Messages { get; set; }
     public DbSet<BasketItem> BasketItems { get; set; }
     public DbSet<Order> Orders { get; set; }
     public DbSet<OrderItem> OrderItems { get; set; }

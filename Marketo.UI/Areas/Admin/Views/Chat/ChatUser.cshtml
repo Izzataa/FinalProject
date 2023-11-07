@@ -1,0 +1,137 @@
+﻿@model ChatVM
+
+@{
+    string username = @ViewBag.User.UserName;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CodePen - Material Messaging App Concept</title>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Montserrat'>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+    <!-- partial:index.partial.html -->
+    <body>
+        <input hidden value="@ViewBag.User.Id" class="id" />
+        <div style="width: 50rem;" class="">
+            <div class="row">
+
+
+                <section class="discussions" style="width:30%;">
+                    <div class="discussion search">
+                    </div>
+                 
+
+                    @foreach (AppUser user in Model.AppUsers)
+                    {
+                        <div class="discussion">
+                            <div class="photo" style="background-image: url(http://e0.365dm.com/16/08/16-9/20/theirry-henry-sky-sports-pundit_3766131.jpg?20161212144602);">
+                                <div class="online"></div>
+                            </div>
+                            <div class="desc-contact">
+                                <p class="name">@user.UserName</p>
+                            </div>
+                        </div>
+                    }
+                </section>
+                <section class="chat">
+                    <div class="header-chat">
+                        <i class="icon fa fa-user-o" aria-hidden="true"></i>
+                        <p class="name">@username</p>
+                        <i class="icon clickable fa fa-ellipsis-h right" aria-hidden="true"></i>
+                    </div>
+                    <div class="messages-chat">
+                    @*     <div class="message">
+                            <div class="photo" style="background-image: url(https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80);">
+                                <div class="online"></div>
+                            </div>
+                        </div>
+               *@
+
+
+                        @foreach (var item in Model.Messages.OrderBy(m=>m.CreateTime))
+                        {
+                            @if (item.AppUser.UserName == User.Identity.Name)
+                            {
+                            <div class="message text-only">
+                                <div class="response">
+                                    <p class="text">@item.Text</p>
+                                </div>
+                                </div>
+
+                            }
+                            else
+                            {
+                                <div class="message text-only">
+                                    <p class="text"> @item.Text</p>
+                                </div>
+                            }
+                        }
+                       
+
+
+
+
+                    </div>
+                    <div class="footer-chat">
+                        <i class="icon fa fa-smile-o clickable" style="font-size:25pt;" aria-hidden="true"></i>
+                     
+                        <input type="text" id="messageInput" class="write-message" placeholder="Type your message here">
+                        <button class="btn btn-primary" onclick="sendMessage()">Send</button>
+                       
+                    </div>
+                </section>
+            </div>
+        </div>
+    </body>
+    <!-- partial -->
+
+</body>
+</html>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.12/signalr.min.js" integrity="sha512-rQm2bvVuqEjdaJKcVj/+bx+FnccQCHZpBIMQRJkyDACamQ12m6XuFb2aHQYgdTEnnHNIsAMeh1hODKwm2Uvy5A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("/chathub")
+        .build();
+    var ID = $('.id').val();
+    var UserNamee = "@username";
+
+    connection.on("ReceiveMessage", (message, user) => {
+        $(document).ready(function () {
+            if (UserNamee === user) {
+                $('.messages-chat').append(`
+                        <div class="message text-only">
+                            <p class="text">${message}</p>
+                        </div>
+                    `);
+            } else {
+                $('.messages-chat').append(`
+                        <div class="message text-only">
+                            <div class="response">
+                                <p class="text">${message}</p>
+                            </div>
+                        </div>
+                    `);
+            }
+        });
+    });
+
+    connection.start().catch(err => console.error(err));
+</script>
+
+<script>
+    function sendMessage() {
+        var message = $("#messageInput").val();
+        connection.invoke("SendMessage", message,ID).catch(err => console.error(err));
+        $("#messageInput").val("");
+    }
+</script>

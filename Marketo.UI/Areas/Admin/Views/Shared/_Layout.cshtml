@@ -80,10 +80,21 @@
             <nav class="sidebar sidebar-offcanvas" style="background: #f07f13; " id="sidebar">
                 <ul class="nav" style="color: #fff;">
                     <li class="nav-item" style="color: #fff;">
-                        <a class="nav-link" style="color: #fff !important" asp-area="AdminPanel" asp-controller="Dashboard">
+                        <a class="nav-link" style="color: #fff !important" asp-area="Admin" asp-controller="Dashboard">
                             <i class="mdi mdi-cube menu-icon"></i>
                             <span class="menu-title">Dashboard</span>
                         </a>
+                    </li>
+                    <li class="nav-item" style="color: #fff;">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+
+                            <a class="nav-link" style="color: #fff !important" asp-area="Admin" asp-route-id="@User.Identity.Name" asp-controller="chat">
+                                <i class="mdi mdi-cube menu-icon"></i>
+                                <span class="menu-title">Chat</span>
+                            </a>
+                        }
+                       
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" style="color: #fff !important" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">

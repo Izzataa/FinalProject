@@ -2,6 +2,7 @@
 using Marketo.DataAccess.Contexts;
 using Marketo.UI.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Marketo.UI.Controllers;
 
@@ -26,5 +27,18 @@ public class HomeController : Controller
             Furnitures=furnitures,
         };
         return View(vm);
+    }
+    public async Task<IActionResult> Faq()
+    {
+        List<Faq> faqs = await _context.Faqs.ToListAsync();
+        return View(faqs);
+    }
+
+    public async Task<IActionResult> About()
+    {
+        ViewBag.furniture = _context.Furnitures.ToList();
+        ViewBag.user = _context.Users.ToList();
+        List<About> abouts = await _context.Abouts.ToListAsync();
+        return View(abouts);
     }
 }

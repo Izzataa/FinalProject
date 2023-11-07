@@ -1,5 +1,6 @@
 using Marketo.Core.Entities;
 using Marketo.DataAccess.Contexts;
+using Marketo.UI.Areas.Admin.Controllers;
 using Marketo.UI.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<LayoutService>();
+builder.Services.AddSignalR();
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
@@ -32,17 +34,18 @@ var app = builder.Build();
 
 app.UseStaticFiles();
 app.UseAuthentication();
-
 app.UseAuthorization();
+app.MapHub<ChatHub>("/chathub");
 app.MapControllerRoute(
-                  name: "areas",
-                  pattern: "{area:exists}/{controller=dashboard}/{action=Index}/{id?}"
-                );
-app.MapControllerRoute
-    (
-    name:"default",
-    pattern:"{controller=Home}/{action=Index}/{id?}"
-    );
+    name: "areas",
+    pattern: "{area:exists}/{controller=dashboard}/{action=Index}/{id?}"
+);
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}"
+);
+
+
 
 app.Run();
- 
