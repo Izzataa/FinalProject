@@ -150,25 +150,14 @@
                                         </div>
                                         <div class="quantity mb-5">
                                             <div class="qty-input">
-                                                <button class="qty-count qty-count--minus" data-action="minus"
-                                                        type="button">
-                                                    -
-                                                </button>
-                                                <input class="product-qty" type="number" name="product-qty" min="0"
-                                                       max="10" value="1">
-                                                <button class="qty-count qty-count--add" data-action="add"
-                                                        type="button">
-                                                    +
-                                                </button>
+                                                
+                                               
                                             </div>
                                             @if (Model.Stock == true)
                                             {
                                                 <a asp-controller="Cart" asp-action="AddBasket" asp-route-id="@Model.Id" class="btn btn-default addToCart" onclick="">Add To Cart</a>
                                             }
-                                            else
-                                            {
-                                                @*<a asp-controller="Cart" asp-action="AddBasket" asp-route-id="@Model.Id" class="btn btn-default addToCart" onclick="" style="cursor:not-allowed;">Add To Cart</a>*@
-                                            }
+                                          
                                         </div>
                                         <div class="share-icon">
                                             <span class="feedback">

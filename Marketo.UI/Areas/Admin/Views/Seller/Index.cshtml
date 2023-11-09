@@ -12,7 +12,7 @@
 
     <div style="width:83%;" class="table-responsive ">
     <h5 class="d-flex" style="justify-content: center; background-color: #d1e7dd; color: #000; font-size: 20px; padding: 10px;">General Seller</h5>
-        <table class="table table-bordered" style="text-align: center">
+    <table id="myDataTable" class="table table-bordered" style="text-align: center">
             <thead class="table table-info" style="text-align: center">
                 <tr>
                     <th>
@@ -107,3 +107,12 @@
         </nav>
     </div>
 </div>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.js"
+        integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+        crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        $('#myDataTable').DataTable();
+    });
+</script>

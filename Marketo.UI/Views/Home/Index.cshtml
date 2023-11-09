@@ -128,362 +128,137 @@
             </div>
             <div id="2" class="arrival_content">
                 <div class="row justify-content-center product-wrap g-2">
-                    <div class="col-lg-3 col-12 col-sm-6 col-md-4 boxs">
-                        <div class="card" id="demo">
-                            <img src="~/assets/image/chair/chair-6.jpg" class="card-img-top img-fluid" alt="...">
-                            <div class="card-body text-center">
-                                <span class="product-categories">
-                                    <a href="#">Innovative Furnitures</a>
-                                </span>
-                                <a class="product-title" href="#">Heavy Duty Antis</a>
-                                <span class="price">
-                                    <span class="Price-amount amount">
-                                        <bdi>
-                                            <span class="Price-currencySymbol">$</span>4,000.00
-                                        </bdi>
-                                    </span>
-                                </span>
-                                <div class="hover-area clearfix text-center" id="text">
-                                    <div class="addcart woocommerce text-center">
-                                        <a href="#" data-quantity="1"
-                                           class="button product_type_variable add-to-cart" data-product_id="2333"
-                                           data-product_sku="" aria-label="Select options for “Heavy Duty Antis”"
-                                           rel="nofollow">
-                                            <i class="fa-solid fa-basket-shopping"></i> Select
-                                            options
-                                        </a>
+                    @foreach (Furniture furniture in Model.Furnitures.OrderByDescending(o => o.Price).Take(4))
+                    {
+                        <div class="col-lg-3 col-12 col-sm-6 col-md-4 boxs">
+                            <a asp-controller="Furniture" asp-action="Detail" asp-route-id="@furniture.Id">
+                                <div class="card" id="demo">
+                                    <img src="~/assets/image/shop/@furniture.Image" class="card-img-top img-fluid" alt="..." style="    width: 320px !important;
+                                                height: 315px !important;
+                                                object-fit: contain;
+                                                padding: 0;
+                                                margin-bottom: 30px;">
+                                    <div class="card-body text-center">
+                                        <span class="product-categories">
+                                            <a style="text-decoration: none;">@furniture.Categories.Name</a>
+                                        </span>
+                                        <a class="product-title" style="color: #000; font-size: 20px;">@furniture.Name</a>
+                                        <span class="price">
+                                            <span class="Price-amount amount">
+                                                <bdi>
+                                                    <span class="Price-currencySymbol">$</span>@furniture.Price
+                                                </bdi>
+                                            </span>
+                                        </span>
+                                        <a asp-controller="Cart" asp-action="AddBasket" asp-route-id="@furniture.Id" class="btn btn-default addToCart" onclick="">Add To Cart</a>
+                                        <div class="hover-area text-center" id="text">
+                                            <a style="text-decoration:none; background-color: red; color: green; position:relative;" class="wishlistFetch" asp-controller="wishlist" asp-action="AddWishlist" asp-route-id="@furniture.Id">
+                                                <i style="font-size: 18px; position: absolute;
+                                                                        top: -425px;
+                                                                        right: -200px;"
+                                                   class="fa-regular fa-heart">
+                                                </i>
+                                            </a>
+                                            <a asp-controller="Furniture" asp-action="Detail" asp-route-id="@furniture.Id" class="add-to-cart" style="">
+                                                <i class="fa-solid fa-basket-shopping">
+                                                </i> Select to option
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-12 col-sm-6 col-md-4 boxs">
-                        <div class="card" id="demo">
-                            <img src="~/assets/image/chair/chair-4.jpg" class="card-img-top img-fluid" alt="...">
-                            <div class="card-body text-center">
-                                <span class="product-categories">
-                                    <a href="#">Innovative Furnitures</a>
-                                </span>
-                                <a class="product-title" href="#">Heavy Duty Antis</a>
-                                <span class="price">
-                                    <span class="Price-amount amount">
-                                        <bdi>
-                                            <span class="Price-currencySymbol">$</span>2,000.00
-                                        </bdi>
-                                    </span>
-                                </span>
-                                <div class="hover-area clearfix" id="text">
-                                    <div class="addcart woocommerce text-center">
-                                        <a href="#" data-quantity="1"
-                                           class="button product_type_variable add-to-cart" data-product_id="2333"
-                                           data-product_sku="" aria-label="Select options for “Heavy Duty Antis”"
-                                           rel="nofollow">
-                                            <i class="fa-solid fa-basket-shopping"></i> Select
-                                            options
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-12 col-sm-6 col-md-4 boxs">
-                        <div class="card" id="demo">
-                            <img src="~/assets/image/chair/chair-3.jpg" class="card-img-top" alt="...">
-                            <div class="card-body text-center">
-                                <span class="product-categories">
-                                    <a href="#">Innovative Furnitures</a>
-                                </span>
-                                <a class="product-title" href="#">Heavy Duty Antis</a>
-                                <span class="price">
-                                    <span class="Price-amount amount">
-                                        <bdi>
-                                            <span class="Price-currencySymbol">$</span>3,000.00
-                                        </bdi>
-                                    </span>
-                                </span>
-                                <div class="hover-area clearfix" id="text">
-                                    <div class="addcart woocommerce text-center">
-                                        <a href="#" data-quantity="1"
-                                           class="button product_type_variable add-to-cart" data-product_id="2333"
-                                           data-product_sku="" aria-label="Select options for “Heavy Duty Antis”"
-                                           rel="nofollow">
-                                            <i class="fa-solid fa-basket-shopping"></i> Select
-                                            options
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-12 col-sm-6 col-md-4 boxs">
-                        <div class="card" id="demo">
-                            <img src="~/assets/image/chair/chair-2.jpg" class="card-img-top" alt="...">
-                            <div class="card-body text-center">
-                                <span class="product-categories">
-                                    <a href="#">Innovative Furnitures</a>
-                                </span>
-                                <a class="product-title" href="#">Heavy Duty Antis</a>
-                                <span class="price">
-                                    <span class="Price-amount amount">
-                                        <bdi>
-                                            <span class="Price-currencySymbol">$</span>5,000.00
-                                        </bdi>
-                                    </span>
-                                </span>
-                                <div class="hover-area clearfix" id="text">
-                                    <div class="addcart woocommerce text-center">
-                                        <a href="#" data-quantity="1"
-                                           class="button product_type_variable add-to-cart" data-product_id="2333"
-                                           data-product_sku="" aria-label="Select options for “Heavy Duty Antis”"
-                                           rel="nofollow">
-                                            <i class="fa-solid fa-basket-shopping"></i> Select
-                                            options
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    }
                 </div>
             </div>
             <div id="3" class="arrival_content">
                 <div class="row justify-content-center product-wrap g-2">
-                    <div class="col-lg-3 col-12 col-sm-6 col-md-4 boxs">
-                        <div class="card" id="demo">
-                            <img src="~/assets/image/chair/chair-5.jpg" class="card-img-top img-fluid" alt="...">
-                            <div class="card-body text-center">
-                                <span class="product-categories">
-                                    <a href="#">Innovative Furnitures</a>
-                                </span>
-                                <a class="product-title" href="#">Heavy Duty Antis</a>
-                                <span class="price">
-                                    <span class="Price-amount amount">
-                                        <bdi>
-                                            <span class="Price-currencySymbol">$</span>4,000.00
-                                        </bdi>
-                                    </span>
-                                </span>
-                                <div class="hover-area clearfix text-center" id="text">
-                                    <div class="addcart woocommerce text-center">
-                                        <a href="#" data-quantity="1"
-                                           class="button product_type_variable add-to-cart" data-product_id="2333"
-                                           data-product_sku="" aria-label="Select options for “Heavy Duty Antis”"
-                                           rel="nofollow">
-                                            <i class="fa-solid fa-basket-shopping"></i> Select
-                                            options
-                                        </a>
+                    @foreach (Furniture furniture in Model.Furnitures.Where(o => o.Trend).Take(4))
+                    {
+                        <div class="col-lg-3 col-12 col-sm-6 col-md-4 boxs">
+                            <a asp-controller="Furniture" asp-action="Detail" asp-route-id="@furniture.Id">
+                                <div class="card" id="demo">
+                                    <img src="~/assets/image/shop/@furniture.Image" class="card-img-top img-fluid" alt="..." style="    width: 320px !important;
+                                                height: 315px !important;
+                                                object-fit: contain;
+                                                padding: 0;
+                                                margin-bottom: 30px;">
+                                    <div class="card-body text-center">
+                                        <span class="product-categories">
+                                            <a style="text-decoration: none;">@furniture.Categories.Name</a>
+                                        </span>
+                                        <a class="product-title" style="color: #000; font-size: 20px;">@furniture.Name</a>
+                                        <span class="price">
+                                            <span class="Price-amount amount">
+                                                <bdi>
+                                                    <span class="Price-currencySymbol">$</span>@furniture.Price
+                                                </bdi>
+                                            </span>
+                                        </span>
+                                        <a asp-controller="Cart" asp-action="AddBasket" asp-route-id="@furniture.Id" class="btn btn-default addToCart" onclick="">Add To Cart</a>
+                                        <div class="hover-area text-center" id="text">
+                                            <a style="text-decoration:none; background-color: red; color: green; position:relative;" class="wishlistFetch" asp-controller="wishlist" asp-action="AddWishlist" asp-route-id="@furniture.Id">
+                                                <i style="font-size: 18px; position: absolute;
+                                                                        top: -425px;
+                                                                        right: -200px;"
+                                                   class="fa-regular fa-heart">
+                                                </i>
+                                            </a>
+                                            <a asp-controller="Furniture" asp-action="Detail" asp-route-id="@furniture.Id" class="add-to-cart" style="">
+                                                <i class="fa-solid fa-basket-shopping">
+                                                </i> Select to option
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-12 col-sm-6 col-md-4 boxs">
-                        <div class="card" id="demo">
-                            <img src="~/assets/image/chair/chair-1.jpg" class="card-img-top img-fluid" alt="...">
-                            <div class="card-body text-center">
-                                <span class="product-categories">
-                                    <a href="#">Innovative Furnitures</a>
-                                </span>
-                                <a class="product-title" href="#">Heavy Duty Antis</a>
-                                <span class="price">
-                                    <span class="Price-amount amount">
-                                        <bdi>
-                                            <span class="Price-currencySymbol">$</span>2,000.00
-                                        </bdi>
-                                    </span>
-                                </span>
-                                <div class="hover-area clearfix" id="text">
-                                    <div class="addcart text-center">
-                                        <a href="#" data-quantity="1"
-                                           class="button product_type_variable add-to-cart" data-product_id="2333"
-                                           data-product_sku="" aria-label="Select options for “Heavy Duty Antis”"
-                                           rel="nofollow">
-                                            <i class="fa-solid fa-basket-shopping"></i> Select
-                                            options
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-12 col-sm-6 col-md-4 boxs">
-                        <div class="card" id="demo">
-                            <img src="~/assets/image/chair/chair-4.jpg" class="card-img-top" alt="...">
-                            <div class="card-body text-center">
-                                <span class="product-categories">
-                                    <a href="#">Innovative Furnitures</a>
-                                </span>
-                                <a class="product-title" href="#">Heavy Duty Antis</a>
-                                <span class="price">
-                                    <span class="Price-amount amount">
-                                        <bdi>
-                                            <span class="Price-currencySymbol">$</span>3,000.00
-                                        </bdi>
-                                    </span>
-                                </span>
-                                <div class="hover-area clearfix" id="text">
-                                    <div class="addcart woocommerce text-center">
-                                        <a href="#" data-quantity="1"
-                                           class="button product_type_variable add-to-cart" data-product_id="2333"
-                                           data-product_sku="" aria-label="Select options for “Heavy Duty Antis”"
-                                           rel="nofollow">
-                                            <i class="fa-solid fa-basket-shopping"></i> Select
-                                            options
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-12 col-sm-6 col-md-4 boxs">
-                        <div class="card" id="demo">
-                            <img src="~/assets/image/chair/chair-6.jpg" class="card-img-top" alt="...">
-                            <div class="card-body text-center">
-                                <span class="product-categories">
-                                    <a href="#">Innovative Furnitures</a>
-                                </span>
-                                <a class="product-title" href="#">Heavy Duty Antis</a>
-                                <span class="price">
-                                    <span class="Price-amount amount">
-                                        <bdi>
-                                            <span class="Price-currencySymbol">$</span>5,000.00
-                                        </bdi>
-                                    </span>
-                                </span>
-                                <div class="hover-area clearfix" id="text">
-                                    <div class="addcart woocommerce text-center">
-                                        <a href="#" data-quantity="1"
-                                           class="button product_type_variable add-to-cart" data-product_id="2333"
-                                           data-product_sku="" aria-label="Select options for “Heavy Duty Antis”"
-                                           rel="nofollow">
-                                            <i class="fa-solid fa-basket-shopping"></i> Select
-                                            options
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    }
                 </div>
             </div>
             <div id="4" class="arrival_content">
                 <div class="row justify-content-center product-wrap g-2">
-                    <div class="col-lg-3 col-12 col-sm-6 col-md-4 boxs">
-                        <div class="card" id="demo">
-                            <img src="~/assets/image/chair/chair-5.jpg" class="card-img-top img-fluid" alt="...">
-                            <div class="card-body text-center">
-                                <span class="product-categories">
-                                    <a href="#">Innovative Furnitures</a>
-                                </span>
-                                <a class="product-title" href="#">Heavy Duty Antis</a>
-                                <span class="price">
-                                    <span class="Price-amount amount">
-                                        <bdi>
-                                            <span class="Price-currencySymbol">$</span>4,000.00
-                                        </bdi>
-                                    </span>
-                                </span>
-                                <div class="hover-area clearfix text-center" id="text">
-                                    <div class="addcart woocommerce text-center">
-                                        <a href="#" data-quantity="1"
-                                           class="button product_type_variable add-to-cart" data-product_id="2333"
-                                           data-product_sku="" aria-label="Select options for “Heavy Duty Antis”"
-                                           rel="nofollow">
-                                            <i class="fa-solid fa-basket-shopping"></i> Select
-                                            options
-                                        </a>
+                    @foreach (Furniture furniture in Model.Furnitures.OrderByDescending(o => o.BestSeller).Take(4))
+                    {
+                        <div class="col-lg-3 col-12 col-sm-6 col-md-4 boxs">
+                            <a asp-controller="Furniture" asp-action="Detail" asp-route-id="@furniture.Id">
+                                <div class="card" id="demo">
+                                    <img src="~/assets/image/shop/@furniture.Image" class="card-img-top img-fluid" alt="..." style="    width: 320px !important;
+                                                height: 315px !important;
+                                                object-fit: contain;
+                                                padding: 0;
+                                                margin-bottom: 30px;">
+                                    <div class="card-body text-center">
+                                        <span class="product-categories">
+                                            <a style="text-decoration: none;">@furniture.Categories.Name</a>
+                                        </span>
+                                        <a class="product-title" style="color: #000; font-size: 20px;">@furniture.Name</a>
+                                        <span class="price">
+                                            <span class="Price-amount amount">
+                                                <bdi>
+                                                    <span class="Price-currencySymbol">$</span>@furniture.Price
+                                                </bdi>
+                                            </span>
+                                        </span>
+                                        <a asp-controller="Cart" asp-action="AddBasket" asp-route-id="@furniture.Id" class="btn btn-default addToCart" onclick="">Add To Cart</a>
+                                        <div class="hover-area text-center" id="text">
+                                            <a style="text-decoration:none; background-color: red; color: green; position:relative;" class="wishlistFetch" asp-controller="wishlist" asp-action="AddWishlist" asp-route-id="@furniture.Id">
+                                                <i style="font-size: 18px; position: absolute;
+                                                                        top: -425px;
+                                                                        right: -200px;"
+                                                   class="fa-regular fa-heart">
+                                                </i>
+                                            </a>
+                                            <a asp-controller="Furniture" asp-action="Detail" asp-route-id="@furniture.Id" class="add-to-cart" style="">
+                                                <i class="fa-solid fa-basket-shopping">
+                                                </i> Select to option
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-12 col-sm-6 col-md-4 boxs">
-                        <div class="card" id="demo">
-                            <img src="~/assets/image/chair/chair-2.jpg" class="card-img-top img-fluid" alt="...">
-                            <div class="card-body text-center">
-                                <span class="product-categories">
-                                    <a href="#">Innovative Furnitures</a>
-                                </span>
-                                <a class="product-title" href="#">Heavy Duty Antis</a>
-                                <span class="price">
-                                    <span class="Price-amount amount">
-                                        <bdi>
-                                            <span class="Price-currencySymbol">$</span>2,000.00
-                                        </bdi>
-                                    </span>
-                                </span>
-                                <div class="hover-area clearfix" id="text">
-                                    <div class="addcart woocommerce text-center">
-                                        <a href="#" data-quantity="1"
-                                           class="button product_type_variable add-to-cart" data-product_id="2333"
-                                           data-product_sku="" aria-label="Select options for “Heavy Duty Antis”"
-                                           rel="nofollow">
-                                            <i class="fa-solid fa-basket-shopping"></i> Select
-                                            options
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-12 col-sm-6 col-md-4 boxs">
-                        <div class="card" id="demo">
-                            <img src="~/assets/image/chair/chair-4.jpg" class="card-img-top" alt="...">
-                            <div class="card-body text-center">
-                                <span class="product-categories">
-                                    <a href="#">Innovative Furnitures</a>
-                                </span>
-                                <a class="product-title" href="#">Heavy Duty Antis</a>
-                                <span class="price">
-                                    <span class="Price-amount amount">
-                                        <bdi>
-                                            <span class="Price-currencySymbol">$</span>3,000.00
-                                        </bdi>
-                                    </span>
-                                </span>
-                                <div class="hover-area clearfix" id="text">
-                                    <div class="addcart woocommerce text-center">
-                                        <a href="#" data-quantity="1"
-                                           class="button product_type_variable add-to-cart" data-product_id="2333"
-                                           data-product_sku="" aria-label="Select options for “Heavy Duty Antis”"
-                                           rel="nofollow">
-                                            <i class="fa-solid fa-basket-shopping"></i> Select
-                                            options
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-12 col-sm-6 col-md-4 boxs">
-                        <div class="card" id="demo">
-                            <img src="~/assets/image/chair/chair-6.jpg" class="card-img-top" alt="...">
-                            <div class="card-body text-center">
-                                <span class="product-categories">
-                                    <a href="#">Innovative Furnitures</a>
-                                </span>
-                                <a class="product-title" href="#">Heavy Duty Antis</a>
-                                <span class="price">
-                                    <span class="Price-amount amount">
-                                        <bdi>
-                                            <span class="Price-currencySymbol">$</span>5,000.00
-                                        </bdi>
-                                    </span>
-                                </span>
-                                <div class="hover-area clearfix" id="text">
-                                    <div class="addcart woocommerce text-center">
-                                        <a href="#" data-quantity="1"
-                                           class="button product_type_variable add-to-cart" data-product_id="2333"
-                                           data-product_sku="" aria-label="Select options for “Heavy Duty Antis”"
-                                           rel="nofollow">
-                                            <i class="fa-solid fa-basket-shopping"></i> Select
-                                            options
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    }
                 </div>
             </div>
         </div>
@@ -619,120 +394,35 @@
     <section class="recently">
         <div class="container pt-5 pb-3">
             <div class="content-header">
-                <h2 class="content-title">Recently Added</h2>
+                <h2 class="content-title">Trend Products</h2>
                 <ul class="nav nav-tabs nav-tab">
+                  
                     <li class="nav-item">
-                        <a id="1" class="nav-link navbtn active_show">On Sell</a>
+                        <a id="1" class="nav-link navbtn">Trend</a>
                     </li>
-                    <li class="nav-item">
-                        <a id="2" class="nav-link navbtn">Hot Sell</a>
-                    </li>
-                    <li class="nav-item">
-                        <a id="3" class="nav-link navbtn">Trend</a>
-                    </li>
-                    <li class="nav-item">
-                        <a id="4" class="nav-link navbtn">Best Sell</a>
-                    </li>
+               
                 </ul>
                 <div class="clearfix"></div>
             </div>
             <div id="1" style="display: block;" class="content_tab">
                 <div class="row mt-5 list-hover">
+                    @foreach (Furniture furniture in Model.Furnitures.Where(o => o.Trend).Take(6))
+                    {
                     <div class="col-lg-2 col-12 col-sm-6 ">
                         <div class="title-img w-100">
-                            <img src="~/assets/image/chair/chair-1.jpg" class="img-fluid" alt="...">
+                            <img src="~/assets/image/shop/@furniture.Image" class="img-fluid" alt="...">
                             <div class="title-a mt-4 mx-3">
-                                <a href="#">Furniture Rim</a>
-                                <span>$4,000.00</span>
+                                <a asp-controller="Furniture" asp-action="Detail" asp-route-id="@furniture.Id">@furniture.Name</a>
+                                <span>@furniture.Price</span>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-2 col-12 col-sm-6">
-                        <div class="title-img w-100">
-                            <img src="~/assets/image/chair/chair-2.jpg" class="img-fluid" alt="...">
-                            <div class="title-a mt-4 mx-3">
-                                <a href="#">Furniture chair</a>
-                                <span>$1.500.00</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-12 col-sm-6">
-                        <div class="title-img w-100">
-                            <img src="~/assets/image/chair/chair-3.jpg" class="img-fluid" alt="...">
-                            <div class="title-a mt-4 mx-3">
-                                <a href="#">Furniture chair</a>
-                                <span>$4,000.00</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-12 col-sm-6">
-                        <div class="title-img w-100">
-                            <img src="~/assets/image/chair/chair-4.jpg" class="img-fluid" alt="...">
-                            <div class="title-a mt-4 mx-3">
-                                <a href="#">Heavy Duty Antis</a>
-                                <span>$4,000.00</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-12 col-sm-6">
-                        <div class="title-img w-100">
-                            <img src="~/assets/image/chair/chair-5.jpg" class="img-fluid" alt="...">
-                            <div class="title-a mt-4 mx-3">
-                                <a href="#">Heavy Duty Antis</a>
-                                <span>$4,000.00</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-12 col-sm-6">
-                        <div class="title-img w-100">
-                            <img src="~/assets/image/chair/chair-6.jpg" class="img-fluid" alt="...">
-                            <div class="title-a mt-4 mx-3">
-                                <a href="#">Furniture chair</a>
-                                <span>$4,000.00</span>
-                            </div>
-                        </div>
-                    </div>
+                        
+                    }
+         
                 </div>
             </div>
-            <div id="2" class="content_tab">
-                <div class="row mt-5 list-hover text-center">
-                    <div class="col-lg-12">
-                        <div class="title-img w-100">
-                            <img src="~/assets/image/chair/chair-3.jpg" class="img-fluid" alt="...">
-                            <div class="title-a mt-4 mx-3">
-                                <a href="#">Furniture Rim</a>
-                                <span>$4,000.00</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="3" class="content_tab">
-                <div class="row mt-5 list-hover text-center">
-                    <div class="col-lg-12">
-                        <div class="title-img w-100">
-                            <img src="~/assets/image/chair/chair-2.jpg" class="img-fluid" alt="...">
-                            <div class="title-a mt-4 mx-3">
-                                <a href="#">Furniture chair</a>
-                                <span>$1.500.00</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="4" class="content_tab">
-                <div class="row mt-5 list-hover text-center">
-                    <div class="col-lg-12">
-                        <div class="title-img w-100 text-center">
-                            <img src="~/assets/image/chair/chair-1.jpg" class="img-fluid" alt="...">
-                            <div class="title-a mt-4 mx-3">
-                                <a href="#">Furniture Rim</a>
-                                <span>$4,000.00</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+     
         </div>
     </section>
     <section class="category-top">
@@ -742,17 +432,21 @@
             </h2>
             <div class="row heavy mt-1">
                 <div class="col-lg-6">
+                    @foreach (Furniture furniture in Model.Furnitures.Where(o => o.CategoryId==3).Take(1))
+                    {
                     <div class="feature-product">
-                        <img src="~/assets/image/category/category1.jpg" class="img-fluid" alt="Heavy Duty Anti">
+                            <img src="~/assets/image/shop/@furniture.Image" class="img-fluid" alt="...">
                         <div class="product-info mt-5">
                             <h4 class="product-title1 large">
-                                <a href="">Innovative Furnitures</a>
+                                <a href="">@furniture.Name</a>
                             </h4>
                             <h4 class="product-title2 large">
-                                <strong><a href="">Heavy Duty Anti</a></strong>
+                                    <strong><a href="">$@furniture.Price</a></strong>
                             </h4>
                         </div>
                     </div>
+                        
+                    }
                 </div>
                 <div class="col-lg-6 xs-padding-0">
                     <div class="row xs-margin-0">
@@ -771,51 +465,36 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="feature-product1">
-                                <img src="~/assets/image/category/chair-1.jpg" class="img-fluid" alt="">
-                                <div class="feature-info">
-                                    <h4 class="product-title-1">
-                                        <a href="">chair</a>
-                                    </h4>
-                                    <h4 class="product-title-2">
-                                        <strong>
-                                            <a href="">Xpeed Wheel Rim</a>
-                                        </strong>
-                                    </h4>
+                        @{
+                            bool test = false;
+                        }
+                        @foreach (Furniture furniture in Model.Furnitures.Where(o => o.CategoryId == 3).Take(4))
+                        {
+                         
+                            @if (test)
+                            {
+                                <div class="col-md-6">
+                                    <div class="feature-product1">
+                                        <img src="~/assets/image/shop/@furniture.Image" class="img-fluid" alt="...">
+                                        <div class="feature-info">
+                                            <h4 class="product-title-1">
+                                                <a href="">chair</a>
+                                            </h4>
+                                            <h4 class="product-title-2">
+                                                <strong>
+                                                    <a href="">Xpeed Wheel Rim</a>
+                                                </strong>
+                                            </h4>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="feature-product1">
-                                <img src="~/assets/image/chair/chair-3.jpg" class="img-fluid" alt="">
-                                <div class="feature-info">
-                                    <h4 class="product-title-1">
-                                        <a href="">chair</a>
-                                    </h4>
-                                    <h4 class="product-title-2">
-                                        <strong>
-                                            <a href="">Xpeed Wheel Rim</a>
-                                        </strong>
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="feature-product1">
-                                <img src="~/assets/image/chair/chair-4.jpg" class="img-fluid" alt="">
-                                <div class="feature-info">
-                                    <h4 class="product-title-1">
-                                        <a href="">chair</a>
-                                    </h4>
-                                    <h4 class="product-title-2">
-                                        <strong>
-                                            <a href="">Xpeed Wheel Rim</a>
-                                        </strong>
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
+                            }
+                            else
+                            {
+                                test = true;
+                            }
+
+                        }
                     </div>
                 </div>
             </div>

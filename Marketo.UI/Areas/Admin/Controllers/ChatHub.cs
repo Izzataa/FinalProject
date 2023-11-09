@@ -28,6 +28,8 @@ namespace Marketo.UI.Areas.Admin.Controllers
         {
             var userName = Context.User.Identity.Name;
             AppUser user = await _userManager.FindByNameAsync(userName);
+
+
             user.Active = false;
             await Clients.All.SendAsync("DisconnectUser", user.Id);
             _context.SaveChanges();
@@ -39,6 +41,7 @@ namespace Marketo.UI.Areas.Admin.Controllers
             {
                 var userName = Context.User.Identity.Name;
                 AppUser user = await _userManager.FindByNameAsync(userName);
+                AppUser SendUser=await _userManager.FindByIdAsync(ID);
                 Message existed = new Message
                 {
                     Text = message,
@@ -51,7 +54,7 @@ namespace Marketo.UI.Areas.Admin.Controllers
                 _context.Messages.Add(existed);
                 _context.SaveChanges();
 
-                await Clients.All.SendAsync("ReceiveMessage", message, user.UserName);
+                await Clients.All.SendAsync("ReceiveMessage", message, user.UserName, SendUser.UserName);
             }
         }
     }
