@@ -125,15 +125,7 @@
         </div>
         <div class="row" style="background-color: gainsboro">
             <div class="col-md-7 grid-margin stretch-card">
-                <div class="card" style="background-color: gainsboro">
-                    <div class="card-body" style="background-color: gainsboro">
-                        <div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                        <p class="card-title">Cash deposits</p>
-                        <p class="mb-4">To start a blog, think of a topic about and first brainstorm party is ways to write details</p>
-                        <div id="cash-deposits-chart-legend" class="d-flex justify-content-center pt-3"><ul class="dashboard-chart-legend"><li><span style="background-color: #ff4747 "></span>Returns</li><li><span style="background-color: #4d83ff "></span>Sales</li><li><span style="background-color: #ffc100 "></span>Loss</li></ul></div>
-                        <canvas id="cash-deposits-chart" style="display: block; width: 547px; height: 273px;" width="547" height="273" class="chartjs-render-monitor"></canvas>
-                    </div>
-                </div>
+                <div id="salaryChart" style="height: 400px;"></div>
             </div>
             <div class="col-md-5 grid-margin stretch-card">
                 <div class="card" style="background-color: gainsboro">
@@ -160,4 +152,64 @@
     </footer>
     <!-- partial -->
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/11.2.0/highcharts.js" integrity="sha512-yQKwezlCfw1iUy19z7b7xp0Xz20rBfEUI9iN5jQ55e56WXzi4ZPQpiKsn0xtSUWIYuV2y6B+GsHgsLK8KAZrFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.12/signalr.min.js" integrity="sha512-rQm2bvVuqEjdaJKcVj/+bx+FnccQCHZpBIMQRJkyDACamQ12m6XuFb2aHQYgdTEnnHNIsAMeh1hODKwm2Uvy5A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!-- main-panel ends -->
+<script>
+
+    $(function () {
+        var chart = Highcharts.chart('salaryChart', {
+            chart: {
+                type: 'line',
+            },
+
+            xAxis: {
+                type: 'datetime',
+            },
+            yAxis: {
+                title: {
+                    text: 'Salary',
+                },
+            },
+            series: [{
+                name: 'Salary',
+                data: [],
+            }],
+        });
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/ChatHub")
+            .build();
+
+        connection.on("SendSalary", (salary) => {
+            console.log('Received OrderSalary:', salary);
+            var value = salary;
+            updateChart(value);
+        });
+
+
+    @foreach (var item in Model.Orders)
+    {
+        <text>
+                updateChart(@item.TotalPrice, '@item.Date');
+        </text>
+    }
+
+
+            connection.start()
+                .then(function () {
+                    console.log('SignalR connected');
+                })
+                .catch(function (err) {
+                    console.error('SignalR connection error:', err.toString());
+                });
+
+        function updateChart(data) {
+            var series = chart.series[0];
+            var shift = series.data.length > 20;
+            series.addPoint([new Date().getTime(), data], true, shift);
+
+        }
+
+    });
+</script>

@@ -35,7 +35,12 @@ function myFunction() {
     x.style.display = "none";
   }
 }
+function checkEmail(email) {
+    var reg = /^([a-zA-Z0-9_\-\.]+)@([a - zA - Z0 - 9_\-\.] +)\.([a-zA-Z]{2,4})$/;
 
+    if (!reg.test(email)) return false;
+    return true;
+}
 
 //SideBar menu
 

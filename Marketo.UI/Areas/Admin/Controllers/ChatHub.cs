@@ -1,5 +1,6 @@
 ﻿using Marketo.Core.Entities;
 using Marketo.DataAccess.Contexts;
+using Marketo.UI.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
 
@@ -15,6 +16,16 @@ namespace Marketo.UI.Areas.Admin.Controllers
             _context = context;
             _userManager = userManager;
         }
+
+
+
+        public async Task OrderSalary(decimal salary)
+        {
+            await Clients.All.SendAsync("SendSalary", salary);
+
+        }
+
+
         public override async Task OnConnectedAsync()
         {
             var userName = Context.User.Identity.Name;

@@ -30,6 +30,13 @@ namespace Marketo.UI.Areas.Admin.Controllers
                 };
                 return View(homeVM);
             }
-      
+        [HttpGet]    
+           public JsonResult GetRandomSalary()
+           {
+            // Replace this with your logic to fetch actual salary data
+            Random random = new Random();
+            double salary = random.Next(50000, 100000);
+            return Json(salary);
+           }
     }
 }

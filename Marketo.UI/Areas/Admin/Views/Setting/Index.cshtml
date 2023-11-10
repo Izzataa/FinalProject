@@ -18,6 +18,26 @@
                 </div>
             </div>
         }
+        if (setting.Key.ToLower().Trim() == "footer-logo")
+        {
+            <div style="display: flex; justify-content: space-between; padding: 1rem 1rem; border-bottom: 1px solid black;">
+                <div style="padding: 1rem"><img style="width: 20rem" src="~/assets/image/@setting.Value" /></div>
+                <div>
+                    <a style="border-radius: 5px;" asp-area="Admin" asp-controller="setting" asp-action="Edit" asp-route-id="@setting.Id"
+                       class="btn btn-outline-success mt-3"><i class="mdi mdi-border-color"></i></a>
+                </div>
+            </div>
+        }
+        if (setting.Key.ToLower().Trim() == "footer-logo2")
+        {
+            <div style="display: flex; justify-content: space-between; padding: 1rem 1rem; border-bottom: 1px solid black;">
+                <div style="padding: 1rem"><img style="width: 20rem" src="~/assets/image/@setting.Value" /></div>
+                <div>
+                    <a style="border-radius: 5px;" asp-area="Admin" asp-controller="setting" asp-action="Edit" asp-route-id="@setting.Id"
+                       class="btn btn-outline-success mt-3"><i class="mdi mdi-border-color"></i></a>
+                </div>
+            </div>
+        }
         if (setting.Key.ToLower().Trim() == "phonenumber")
         {
             <div style="display: flex; justify-content: space-between; padding: 1rem 1rem; border-bottom: 1px solid black;">

@@ -68,7 +68,7 @@
 
                         <div class="col-md-12">
                             <div class="form-group">
-                                <button class="btn" id="contact" type="submit">SUBMIT NOW</button>
+                                <button class="btn btn btn-warning mt-4" id="contact" type="submit">SUBMIT NOW</button>
                                 <div class="submitting"></div>
                             </div>
                         </div>
@@ -177,17 +177,42 @@
         console.log(Subject)
 
         if (Name && Email && Description && Subject) {
-            $.post('contact/Index/', { Name, Email, Description, Subject }, () => {
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'Your work has been saved',
-                    showConfirmButton: false,
-                    timer: 1500
+            $.post('contact/Index/', { Name, Email, Description, Subject })
+                .done(function (isValid) {
+              
+                    if (isValid == false) {
+                     
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                        });
+                    }
+                    else {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Your work has been saved',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+
+                    // Clear the input fields
+                    $("#name, #email, #Description, #subject").val('');
+                })
+  
+                .fail(function (error) {
+                   
+                    console.error('Error:', status, error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                    });
                 });
-                $("#name, #email, #Description, #subject").val('');
-            });
         }
+
         else {
             Swal.fire({
                 icon: 'error',

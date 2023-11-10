@@ -498,10 +498,10 @@
                             </h2>
                             <div class="row g-5 text-center custom">
                                 <div class="col-lg-3 hoverlg">
-                                    <img src="~/assets/image/footer logo/skril-1.jpg" alt="">
+                                    <img src="~/assets/image/@layoutService.getSettings().FirstOrDefault(s=>s.Key.Trim().ToLower() == "footer-logo")?.Value" alt="">
                                 </div>
                                 <div class="col-lg-3 hoverlg">
-                                    <img src="~/assets/image/footer logo/palypal-1.jpg" alt="">
+                                    <img src="~/assets/image/@layoutService.getSettings().FirstOrDefault(s=>s.Key.Trim().ToLower() == "footer-logo2")?.Value" alt="">
                                 </div>
                                 <div class="col-lg-3 hoverlg">
                                     <img src="~/assets/image/footer logo/american_express-1.jpg" alt="">

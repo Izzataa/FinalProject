@@ -2,6 +2,7 @@
 using Marketo.DataAccess.Contexts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.RegularExpressions;
 
 namespace Marketo.UI.Controllers
 {
@@ -28,7 +29,13 @@ namespace Marketo.UI.Controllers
                 ModelState.AddModelError("Contact", "This is erorr mesaj");
                 return View();
             }
-
+            string pattern = @"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,4})$";
+            Regex regex = new Regex(pattern);
+            bool isValid = regex.IsMatch(contact.Email);
+            if (!isValid)
+            {
+                return Json(isValid);
+            }
             Contact message = new Contact
             {
                 Name = contact.Name,

@@ -1,8 +1,11 @@
 ﻿using Marketo.Core.Entities;
 using Marketo.DataAccess.Contexts;
+using Marketo.UI.Areas.Admin.Controllers;
+using Marketo.UI.Services;
 using Marketo.UI.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Marketo.UI.Controllers
@@ -11,16 +14,17 @@ namespace Marketo.UI.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly AppDbContext _context;
+        private readonly IHubContext<ChatHub> _hubContext;
 
-        public OrderController(UserManager<AppUser> userManager, AppDbContext context)
+        public OrderController(UserManager<AppUser> userManager, AppDbContext context, IHubContext<ChatHub> hub)
         {
             _userManager = userManager;
             _context = context;
+            _hubContext = hub;
         }
-        //public IActionResult Checkout()
-        //{
-        //    return View();
-        //}
+      
+
+     
 
         public async Task<IActionResult> ViewCart()
         {
@@ -53,6 +57,7 @@ namespace Marketo.UI.Controllers
                 BasketItems = _context.BasketItems.Include(m => m.Furniture).Where(m => m.AppUserId == user.Id).ToList()
 
             };
+         
             return View(model);
         }
 
@@ -84,7 +89,7 @@ namespace Marketo.UI.Controllers
                 Date = DateTime.Now,
                 AppUserId = user.Id
             };
-
+          
             foreach (BasketItem item in model.BasketItems)
             {
                 order.TotalPrice += item.Furniture.Price * item.Quantity;
@@ -106,9 +111,11 @@ namespace Marketo.UI.Controllers
                 }
                 _context.OrderItems.Add(orderItem);
             }
+           
             _context.BasketItems.RemoveRange(model.BasketItems);
             _context.Orders.Add(order);
             _context.SaveChanges();
+            await _hubContext.Clients.All.SendAsync("SendSalary", order.TotalPrice);
             TempData["Succeeded"] = true;
             TempData["name"] = "Your order has been successfully confirmed";
             return RedirectToAction("index", "home");

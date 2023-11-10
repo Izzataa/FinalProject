@@ -45,5 +45,15 @@ public class OrderController : Controller
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }
+    public async Task<IActionResult> Detail(int? id)
+    {
+        if (id == null || id == 0) return NotFound();
+        List<OrderItem> orderItems = _context.OrderItems.Include(o=>o.Furniture).Where(o => o.OrderId==id).ToList();
+     
+     
+        
+        await _context.SaveChangesAsync();
+        return View(orderItems);
+    }
 }
 

@@ -23,7 +23,7 @@ namespace Marketo.UI.Areas.Admin.Controllers
             if (id == null) return NotFound();
             AppUser appUser = _context.Users.FirstOrDefault(x => x.UserName == id);
              if(appUser == null) return NotFound();
-            List<AppUser> users = _context.Users.Where(u => u.UserName != id).ToList();
+            List<AppUser> users = _context.Users.Where(u => u.UserName != id && u.Admin == true || u.Admin == false).ToList();
             List<Message> messages = _context.Messages.ToList();
             ChatVM chatVM = new ChatVM
             {
@@ -41,7 +41,7 @@ namespace Marketo.UI.Areas.Admin.Controllers
             AppUser appUser = _context.Users.FirstOrDefault(x => x.Id == Userid);
             if (appUser == null) return NotFound();
             ViewBag.User = appUser;
-            List<AppUser> users = _context.Users.Where(u => u.UserName != User.Identity.Name).ToList();
+            List<AppUser> users = _context.Users.Where(u => u.UserName != User.Identity.Name&&u.Admin==true||u.Admin==false).ToList();
             List<Message> messages = _context.Messages.Include(m => m.AppUser)
            .Where(m => (m.AppUserId == Loginuser.Id && m.AcceptUserId == Userid) || (m.AppUserId == Userid && m.AcceptUserId == Loginuser.Id))
            .ToList();
