@@ -645,6 +645,7 @@
             e.preventDefault();
             var href = $(this).attr("href");
             console.log(href)
+            var btn = $(this);
             var base = window.location.origin;
             var url = `${base}${href}`
             var urlForPartial = `${base}/Wishlist/GetWishlistPartial`
@@ -653,10 +654,8 @@
 
                 fetch(urlForPartial).then(res => res.text()).then(data => {
 
-                    $(".wish-lists .wishContainer .wishinROw").empty();
-
-                    $(".wish-lists .wishContainer .wishinROw").append(data);
-                    location.reload(true)
+                    btn.parent().parent().parent().remove();
+                   
                 })
 
             })
@@ -668,6 +667,5 @@
     });
 </script>
 
-@*wishlist fetch end*@
 
 </html>

@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Marketo.Core", "Marketo.Cor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Marketo.DataAccess", "Marketo.DataAccess\Marketo.DataAccess.csproj", "{EB7E066B-598F-4F70-8AC6-11B5FB67D759}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marketo.Buisness", "Marketo.Buisness\Marketo.Buisness.csproj", "{D6F047B2-84BC-4111-B8E3-053BCA2BC4BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Marketo.Buisness", "Marketo.Buisness\Marketo.Buisness.csproj", "{D6F047B2-84BC-4111-B8E3-053BCA2BC4BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

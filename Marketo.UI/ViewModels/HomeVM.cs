@@ -9,6 +9,7 @@ namespace Marketo.UI.ViewModels
         public List<Furniture> Furnitures { get; set; }
         public List<Order> Orders { get; set; }
         public List<Contact> Contacts { get; set; }
+        public List<WishlistItem> wishlistItems { get; set; }
 
 
     }

@@ -1,4 +1,5 @@
 ﻿@model ChatVM
+@inject Marketo.UI.Services.LayoutService layoutService
 
 @{
     string username = @ViewBag.User.UserName;
@@ -27,32 +28,33 @@
                 <section class="discussions" style="width:30%;">
                     <div class="discussion search">
                     </div>
-                 
+
+
+                    @{
+                        // Query settings outside the loop to avoid repeated queries
+                        var adminImg = layoutService.getSettings().FirstOrDefault(s => s.Key.Trim().ToLower() == "admin-logo");
+                        var moderatorImg = layoutService.getSettings().FirstOrDefault(s => s.Key.Trim().ToLower() == "moderator-logo");
+                    }
 
                     @foreach (AppUser user in Model.AppUsers)
                     {
-                        if (user.Active == true)
-                        {
-                            <div class="discussion" data-user-id="@user.Id">
-                                <div class="photo" style="background-image: url(http://e0.365dm.com/16/08/16-9/20/theirry-henry-sky-sports-pundit_3766131.jpg?20161212144602);">
-                                    <div style="background-color:green" class="online"></div>
-                                </div>
-                                <a asp-action="ChatUser" asp-route-Userid="@user.Id" class="desc-contact">
-                                    <p class="name">@user.UserName</p>
-                                </a>
+                        // Choose the appropriate image based on the user's role
+                        var userImg = user.Admin.HasValue && user.Admin.Value
+                        ? (adminImg ?? new Setting())
+                        : (moderatorImg ?? new Setting());
+
+
+                        // Set the online status color
+                        var onlineStatusColor = user.Active ? "green" : "red";
+
+                        <div class="discussion" data-user-id="@user.Id">
+                            <div class="photo" style="background-image: url(@userImg.Value);">
+                                <div style="background-color: @onlineStatusColor;" class="online"></div>
                             </div>
-                        }
-                        else
-                        {
-                            <div class="discussion" data-user-id="@user.Id">
-                                <div class="photo" style="background-image: url(http://e0.365dm.com/16/08/16-9/20/theirry-henry-sky-sports-pundit_3766131.jpg?20161212144602);">
-                                    <div style="background-color:red" class="online"></div>
-                                </div>
-                                <a asp-action="ChatUser" asp-route-Userid="@user.Id" class="desc-contact">
-                                    <p class="name">@user.UserName</p>
-                                </a>
-                            </div>
-                        }
+                            <a asp-action="ChatUser" asp-route-Userid="@user.Id" class="desc-contact">
+                                <p class="name">@user.UserName</p>
+                            </a>
+                        </div>
                     }
                 </section>
                 <section class="chat">

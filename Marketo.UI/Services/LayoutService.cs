@@ -114,5 +114,61 @@ public class LayoutService
         return basketData;
 
     }
-    
+    public async Task<WishlistVM> GetWishlist()
+    {
+        string wishlist = _http.HttpContext.Request.Cookies["Wishlist"];
+
+        WishlistVM wishlistData = new WishlistVM
+        {
+            WishlistItems = new List<WishlistItemVM>(),
+            Count = 0
+        };
+        if (_http.HttpContext.User.Identity.IsAuthenticated)
+        {
+            AppUser user = await _userManager.FindByNameAsync(_http.HttpContext.User.Identity.Name);
+            List<WishlistItem> wishlistItems = _context.WishlistItems.Include(b => b.AppUser).Where(b => b.AppUserId == user.Id).ToList();
+            foreach (WishlistItem item in wishlistItems)
+            {
+                Furniture furniture = _context.Furnitures.Include(m => m.Categories).Include(m => m.Furnitureimages).FirstOrDefault(m => m.Id == item.FurnitureId);
+                if (furniture != null)
+                {
+                    WishlistItemVM wishlistItemVM = new WishlistItemVM
+                    {
+                        Furniture = furniture,
+                        Quantity = item.Count
+                    };
+                    wishlistItemVM.Price = furniture.Price;
+                    wishlistData.WishlistItems.Add(wishlistItemVM);
+                    wishlistData.Count++;
+                }
+            }
+        }
+        else
+        {
+            if (!string.IsNullOrEmpty(wishlist))
+            {
+                List<WishlistCookieItemVM> wishlistCookieItems = JsonConvert.DeserializeObject<List<WishlistCookieItemVM>>(wishlist);
+
+                foreach (WishlistCookieItemVM item in wishlistCookieItems)
+                {
+                    Furniture furniture = _context.Furnitures.Include(m => m.Categories).Include(m => m.Furnitureimages).FirstOrDefault(m => m.Id == item.Id);
+                    if (furniture != null)
+                    {
+                        WishlistItemVM wishlistItem = new WishlistItemVM
+                        {
+                            Furniture = _context.Furnitures.Include(m => m.Categories).Include(m => m.Furnitureimages).FirstOrDefault(m => m.Id == item.Id),
+                            Quantity = item.Quantity
+                        };
+
+                        wishlistItem.Price = furniture.Price;
+                        wishlistData.WishlistItems.Add(wishlistItem);
+                        wishlistItem.Quantity++;
+                    }
+                }
+
+            }
+        }
+        return wishlistData;
+    }
+
 }

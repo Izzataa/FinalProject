@@ -19,12 +19,14 @@ public class HomeController : Controller
         List <Slider> sliders= _context.Sliders.ToList();
         List<Category> categories = _context.Categories.ToList();
         List<Furniture>furnitures= _context.Furnitures.ToList();
+        List<WishlistItem> wishlistItems=_context.WishlistItems.ToList();
 
         HomeVM vm = new HomeVM
         {
             Sliders = sliders,
             Categories = categories,
             Furnitures=furnitures,
+            wishlistItems=wishlistItems
         };
         return View(vm);
     }
