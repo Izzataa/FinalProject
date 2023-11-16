@@ -19,9 +19,9 @@ namespace Marketo.UI.Areas.Admin.Controllers
 
 
 
-        public async Task OrderSalary(decimal salary)
+        public async Task OrderSalary(decimal salary,DateTime dateTime)
         {
-            await Clients.All.SendAsync("SendSalary", salary);
+            await Clients.All.SendAsync("SendSalary", salary, dateTime);
 
         }
 

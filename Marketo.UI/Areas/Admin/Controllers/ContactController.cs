@@ -7,6 +7,9 @@ namespace Marketo.UI.Areas.Admin.Controllers
 {
 
     [Area("Admin")]
+    [Authorize(Roles = "Admin, Moderator")]
+
+
     public class ContactController : Controller
     {
         private readonly AppDbContext _context;

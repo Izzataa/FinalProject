@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="~/assets/css/style.css">
 </head>
 
-<body>
+<body style="overflow:auto !important">
     <!--  Modal start -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -544,6 +544,9 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <!-- Aos js end cdn -->
 <script src="~/assets/js/main.js"></script>
+<script src="~/assets/js/shop.js"></script>
+<script src="~/assets/js/cart.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @*Basket fetch start*@
 <script>
 
@@ -577,36 +580,33 @@
             }, 100);
         })
 
-        $(document).on("click", ".remove", function (e) {
 
-            e.preventDefault();
-            var href = $(this).attr("href");
-            console.log(href)
-            var base = window.location.origin;
-            var url = `${base}${href}`
-            var urlForPartial = `${base}/cart/GetPartial`
+    $(function () {
+            $(".carts").on("click", ".remove", function () {
+            var btn = $(this);
+            var id = btn.data("id")
+                    $.ajax({
+                        type: "GET",
+                            url: "cart/DeleteBasketitem/" + id,
+                    success: function (data) {
+                        $(".carts").val('');
+                        $(".carts").html(data);
+                        $('body').css('overflow', '');
+                        $('body').css('padding', '');
 
-            fetch(url).then(res => res.text()).then(data => {
-
-                fetch(urlForPartial).then(res => res.text()).then(data => {
-
-                    $(".carts").empty();
-                    var card = document.querySelector(".carts")
-
-                    $(".carts").append(data);
-
-                })
-
+                    }
             })
-            setTimeout(function () {
-                var totalcount = document.getElementById("total_count")
-                var htmltag = document.getElementById("total-count")
-                htmltag.innerHTML = "0"
-                var count = totalcount.innerHTML
-                htmltag.innerHTML = count
-            }, 100);
+                setTimeout(function () {
+                    var totalcount = document.getElementById("total_count")
+                    var count = totalcount.innerHTML
+                    var htmltag = document.getElementById("total-count")
+                    htmltag.innerHTML = count
+                }, 100)
+        });
+    });
 
-        })
+
+ 
     })
 </script>
 @*Basket fetch end*@

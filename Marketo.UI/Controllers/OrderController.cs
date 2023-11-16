@@ -22,10 +22,6 @@ namespace Marketo.UI.Controllers
             _context = context;
             _hubContext = hub;
         }
-      
-
-     
-
         public async Task<IActionResult> ViewCart()
         {
             AppUser user = await _userManager.FindByNameAsync(User.Identity.Name);
@@ -115,7 +111,7 @@ namespace Marketo.UI.Controllers
             _context.BasketItems.RemoveRange(model.BasketItems);
             _context.Orders.Add(order);
             _context.SaveChanges();
-            await _hubContext.Clients.All.SendAsync("SendSalary", order.TotalPrice);
+            await _hubContext.Clients.All.SendAsync("SendSalary", order.TotalPrice,order.Date.ToString("MM/dd/yyyy HH:mm"));
             TempData["Succeeded"] = true;
             TempData["name"] = "Your order has been successfully confirmed";
             return RedirectToAction("index", "home");

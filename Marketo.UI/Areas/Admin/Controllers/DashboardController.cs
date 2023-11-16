@@ -2,6 +2,7 @@
 using Marketo.DataAccess.Contexts;
 using Marketo.UI.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.InteropServices;
@@ -9,15 +10,24 @@ using System.Runtime.InteropServices;
 namespace Marketo.UI.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class DashboardController : Controller
-    {
-     
-            private readonly AppDbContext _context;
+    [Authorize(Roles = "Admin, Moderator")]
 
-            public DashboardController(AppDbContext context)
-            {
-                _context = context;
-            }
+
+    public class DashboardController : Controller
+    {     
+        private readonly AppDbContext _context;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly SignInManager<AppUser> _signInManager;
+        public DashboardController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, AppDbContext context, RoleManager<IdentityRole> roleManager)
+        {
+            _context = context;
+            _userManager = userManager;
+            _roleManager = roleManager;
+            _signInManager = signInManager;
+        }
+     
+           
             public async Task<IActionResult> Index()
             {
                 HomeVM homeVM = new HomeVM
@@ -38,5 +48,10 @@ namespace Marketo.UI.Areas.Admin.Controllers
             double salary = random.Next(50000, 100000);
             return Json(salary);
            }
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home", new { area = "" });
+        }
     }
 }

@@ -7,7 +7,8 @@ using Microsoft.EntityFrameworkCore;
 namespace Marketo.UI.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    
+[Authorize(Roles = "Admin, Moderator")]
+
     public class SellerController : Controller
     {
         private readonly AppDbContext _context;
@@ -23,7 +24,7 @@ namespace Marketo.UI.Areas.Admin.Controllers
         {
             int max = 8;
             double pageCountsort = Math.Ceiling((double)((decimal)_context.Furnitures.Count() / Convert.ToDecimal(max)));
-            List<Furniture> model = await _context.Furnitures.Include(c => c.Categories).Include(c => c.Furnitureimages).Skip((page - 1) * 5).Take(5).ToListAsync();
+            List<Furniture> model = await _context.Furnitures.Include(c => c.Categories).Include(c => c.Furnitureimages).ToListAsync();
             ViewBag.CurentPage = page;
             ViewBag.TotalPage = pageCountsort;
             return View(model);

@@ -37,10 +37,9 @@
             <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end" style="background-color:#f07f13;">
                 <ul class="navbar-nav navbar-nav-right" style="background-color: #f07f13 !important;">
                     <li class="nav-item dropdown me-1 g-3" style="gap: 20px; background-color: #f07f13;">
-                       @* <a asp-area="AdminPanel" asp-controller="Order" class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown">
-                            <i class="mdi mdi-checkbox-marked-circle mx-0"></i>
-                            <span style="background: #fff; width:20px; height: 20px; top: 0px;" class="count">@layoutService.GetOrders().Count()</span>
-                        </a>*@
+                        <a asp-area ="Admin" asp-controller="Dashboard" style="text-decoration: none; color: #000; margin-left:10px; margin-top:2px; height:16.5px;" class="myaccountA" asp-controller="account" asp-action="logout" type="submit">
+                            Logout
+                        </a>
                         <a asp-area="Admin" asp-controller="Contact" class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown">
                             <i class="mdi mdi-message-text mx-0"></i>
                             <span style="background: #fff; width:20px; height: 20px; top: 0px;" class="count"></span>

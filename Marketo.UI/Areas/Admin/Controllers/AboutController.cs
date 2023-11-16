@@ -1,12 +1,15 @@
 ﻿using FianlProject.Extensions;
 using Marketo.Core.Entities;
 using Marketo.DataAccess.Contexts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Marketo.UI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin, Moderator")]
+
     public class AboutController : Controller
     {
         private readonly AppDbContext _context;
@@ -39,7 +42,6 @@ namespace Marketo.UI.Areas.Admin.Controllers
             if (id == null || id == 0) return NotFound();
             About existed = await _context.Abouts.FindAsync(id);
             if (existed == null) return NotFound();
-            if (!ModelState.IsValid) return View(about);
             if (about.Photo == null)
             {
                 string filename = existed.Image;

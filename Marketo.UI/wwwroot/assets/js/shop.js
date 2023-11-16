@@ -1,4 +1,67 @@
+const rangeInput = document.querySelectorAll(".range-input input"),
+    priceInput = document.querySelectorAll(".price-input input"),
+    range = document.querySelector(".slider .progress");
+let priceGap = 500;
 
+// Function to update input styles
+function updateInputStyles(input, isActive) {
+    if (isActive) {
+        input.style.borderColor = "#f07f13"; // Change the border color as needed
+    } else {
+        input.style.borderColor = "#ccc"; // Reset the border color when not active
+    }
+}
+
+priceInput.forEach((input) => {
+    input.addEventListener("input", (e) => {
+        let minPrice = parseInt(priceInput[0].value),
+            maxPrice = parseInt(priceInput[1].value);
+
+        if (maxPrice - minPrice >= priceGap && maxPrice <= rangeInput[1].max) {
+            if (e.target.className === "input-min") {
+                rangeInput[0].value = minPrice;
+                range.style.left = (minPrice / rangeInput[0].max) * 100 + "%";
+            } else {
+                rangeInput[1].value = maxPrice;
+                range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%";
+            }
+        }
+
+        // Update input styles based on focus state
+        updateInputStyles(input, e.target === document.activeElement);
+    });
+
+    // Update input styles on focus and blur events
+    input.addEventListener("focus", () => updateInputStyles(input, true));
+    input.addEventListener("red", () => updateInputStyles(input, false));
+});
+
+rangeInput.forEach((input) => {
+    input.addEventListener("input", (e) => {
+        let minVal = parseInt(rangeInput[0].value),
+            maxVal = parseInt(rangeInput[1].value);
+
+        if (maxVal - minVal < priceGap) {
+            if (e.target.className === "range-min") {
+                rangeInput[0].value = maxVal - priceGap;
+            } else {
+                rangeInput[1].value = minVal + priceGap;
+            }
+        } else {
+            priceInput[0].value = minVal;
+            priceInput[1].value = maxVal;
+            range.style.left = (minVal / rangeInput[0].max) * 100 + "%";
+            range.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + "%";
+        }
+
+        // Update input styles based on focus state
+        updateInputStyles(input, e.target === document.activeElement);
+    });
+
+    // Update input styles on focus and blur events
+    input.addEventListener("focus", () => updateInputStyles(input, true));
+    input.addEventListener("red", () => updateInputStyles(input, false));
+});
 // ProductDetail mini img change
 
 $(document).ready(function(){

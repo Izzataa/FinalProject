@@ -31,23 +31,31 @@
                 <div class="col-lg-3">
                     <div class="filter-title">
                         <h3>Filter:</h3>
-                    <form method="post" asp-route-max="@ViewBag.Max" asp-route-min="@ViewBag.Min" asp-route-key="@ViewBag.CurrentKey" asp-action="Index">
-                            <div class="price_slider_wrapper">
-                                <div class="range-slider">
-                                    <span class="rangeValues"
-                                        style="display: inline-block; color: #999; padding-top: 20px; padding-left: 50px; font-size: 15px"></span>
-                                <input value="100" min="100" max="1000" name="pagimin" step="50" type="range">
-                                <input value="1000" min="100" max="1000" name="pagimax" step="50" type="range">
+                    <div class="wrapper">
+                        <form method="post" asp-controller="Shop" asp-route-max="@ViewBag.Max" asp-route-min="@ViewBag.Min" asp-route-id="@(ViewBag.CurrentCategory==null?null:ViewBag.CurrentCategory)" asp-route-key="@ViewBag.CurrentKey" asp-action="index">
+                            <div class="price-input">
+                                <div class="field">
+                                    <span>Min</span>
+                                    <input style="height:1rem;" type="number" name="min" class="input-min" value="2500">
                                 </div>
-                                <div class="price_slider_amount" data-step="10">
-                                    <button type="submit" class="button">Filter</button>
-                                    <div class="price_label" style="">
-                                        Price:
-                                    </div>
-                                    <div class="clear"></div>
+
+                                <div class="field">
+                                    <span>Max</span>
+                                    <input style="height:1rem;" type="number" name="max" class="input-max" value="7500">
                                 </div>
                             </div>
-                     </form>
+
+                            <div class="slider">
+                                <div class="progress" style="left: 25%; right: 35%; background:none"></div>
+                            </div>
+                            <div class="range-input">
+                                <input type="range" asp-controller="Shop" class="range-min" min="0" max="10000" value="2500" step="100">
+                                <input type="range" class="range-max" min="0" max="10000" value="7500" step="100">
+                            </div>
+                            <button style="line-height: 32px;">FILTER</button>
+                        </form>
+                    </div>
+
                     </div>
                   
                     <div class="product-category">
@@ -70,7 +78,7 @@
                     <div id="block-2" class="widget widget_block media_image">
                         <figure class="block-image size-full">
                             <img width="255" height="475"
-                             src="~/assets/image/shop/@layoutService.getSettings().FirstOrDefault(s=>s.Key.Trim().ToLower() == "shopbanner")?.Value"
+                             src="~/assets/image/shop/@layoutService.getSettings().FirstOrDefault(s=>s.Key.Trim().ToLower() == "advertising")?.Value"
                                 alt="" class="wp-image-2899 lazyloaded" data-ll-status="loaded">
                         </figure>
                     </div>
@@ -135,20 +143,7 @@
                         <div class="row is-grid-active">
                             @foreach (Furniture furniture in Model.Furnitures.OrderByDescending(c=>c.Name).Take(6))
                             {
-                                @*int ratingCount = 0;
-                                int countPoint = 0;
-                                int avg = 0;
-                                    @if (furniture.Rates.Count > 0)
-                                    {
-                                        @foreach (var item in furniture.Rates)
-                                        {
-                                            ratingCount++;
-                                            countPoint += item.Point;
-                                        }
-
-                                        avg = countPoint / ratingCount;
-
-                                    }*@
+                               
 
                                 <div class="col-lg-6">
                                     <a asp-controller="Furniture" asp-action="Detail" asp-route-id="@furniture.Id">
@@ -161,12 +156,7 @@
                                                 </a>
                                             </div>
                                             <div class="content text-center py-0">
-                                                <span class="rate" style="color: #f07f13; letter-spacing: -3px;">
-                                                   @* @for (int i = 0; i < avg; i++)
-                                                    {
-                                                         <i class="fa-solid fa-star"></i>
-                                                    }*@
-                                                </span>
+                                               
                                                 <a asp-controller="Wishlist" asp-action="AddWishlist" class="hrt btn--e-brand d-flex wishlistFetch" asp-route-id="@furniture.Id" data-modal="modal"
                                                data-modal-id="#add-to-cart">
                                                     <i class="fa-regular fa-heart"></i>

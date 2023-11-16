@@ -1,12 +1,16 @@
 ﻿using FianlProject.Extensions;
 using Marketo.Core.Entities;
 using Marketo.DataAccess.Contexts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
 namespace Marketo.UI.Areas.Admin.Controllers;
 [Area("Admin")]
+[Authorize(Roles = "Admin, Moderator")]
+
+
 public class FurnitureController : Controller
 {
     private readonly AppDbContext _context;
@@ -25,7 +29,7 @@ public class FurnitureController : Controller
                 .Include(c => c.Furnitureimages).Include(f => f.Categories).ToListAsync();
 
         return View(model);
-     
+
     }
     public IActionResult Create()
     {
@@ -38,10 +42,14 @@ public class FurnitureController : Controller
     {
         ViewBag.Description = _context.FurnitureDescriptions.ToList();
         ViewBag.Categories = _context.Categories.ToList();
-        //if (!ModelState.IsValid) return View();
         if (furniture.MainPhoto == null || furniture.Photos == null)
         {
             ModelState.AddModelError(string.Empty, "must choose 1 main photo");
+            return View();
+        }
+        if (furniture.Article == null)
+        {
+            ModelState.AddModelError(string.Empty, "Article empty");
             return View();
         }
         if (!furniture.MainPhoto.ImageIsOkey(2))
@@ -84,29 +92,13 @@ public class FurnitureController : Controller
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(int? id)
     {
         if (id == null || id == 0) return NotFound();
         Furniture furniture = await _context.Furnitures.FindAsync(id);
         if (furniture == null) return NotFound();
-        //OrderItem order = await _context.OrderItems.FirstOrDefaultAsync(o => o.FurnitureId == furniture.Id);
-        //if (order == null)
-        //{
-        //    List<FurnitureImage> furnitureimages = await _context.FurnitureImages.ToListAsync();
-        //    foreach (FurnitureImage item in furnitureimages)
-        //    {
-        //        if (furniture.Id == item.FurnitureId)
-        //        {
-        //            var alternativpath = Path.Combine(_env.WebRootPath, "assets/image/shop/", item.Name);
-        //            System.IO.File.Delete(alternativpath);
-        //        }
-        //    }
-        //}
-        //else
-        //{
-        //    TempData["orderitem"] = "Order cannot be deleted";
-        //    return RedirectToAction(nameof(Index));
-        //}
+       
 
 
 

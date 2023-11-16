@@ -16,7 +16,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddIdentity<AppUser, IdentityRole>(opt =>
 {
     opt.User.RequireUniqueEmail = true;
-    opt.SignIn.RequireConfirmedEmail = false;
+    opt.SignIn.RequireConfirmedEmail = true;
     opt.User.AllowedUserNameCharacters = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890_";
 
     opt.Password.RequiredUniqueChars = 3; 
@@ -45,7 +45,4 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}"
 );
-
-
-
 app.Run();

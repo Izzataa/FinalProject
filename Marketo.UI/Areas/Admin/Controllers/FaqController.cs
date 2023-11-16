@@ -1,11 +1,15 @@
 ﻿using Marketo.Core.Entities;
 using Marketo.DataAccess.Contexts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Marketo.UI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin, Moderator")]
+
+
     public class FaqController : Controller
     {
         private readonly AppDbContext _context;

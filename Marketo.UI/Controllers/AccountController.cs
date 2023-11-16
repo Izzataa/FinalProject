@@ -48,7 +48,7 @@ namespace Marketo.UI.Controllers
                 LastName = register.LastName,
                 UserName = register.UserName,
                 Email = register.Email,
-                Admin = false
+                Admin = null
             };
 
             IdentityResult result = await _userManager.CreateAsync(user, register.Password);

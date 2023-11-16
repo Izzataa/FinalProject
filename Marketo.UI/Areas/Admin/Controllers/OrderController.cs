@@ -1,5 +1,6 @@
 ﻿using Marketo.Core.Entities;
 using Marketo.DataAccess.Contexts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,6 +8,8 @@ namespace Marketo.UI.Areas.Admin.Controllers;
 
 
 [Area("Admin")]
+[Authorize(Roles = "Admin, Moderator")]
+
 public class OrderController : Controller
 {
     //[Authorize(Roles = "Admin")]
@@ -23,6 +26,7 @@ public class OrderController : Controller
         return View(orders);
     }
 
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Confirm(int? id)
     {
         if (id == 0 || id == null)

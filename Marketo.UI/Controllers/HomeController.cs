@@ -14,13 +14,12 @@ public class HomeController : Controller
     {
         _context = context;
     }
-    public IActionResult Index()
+    public IActionResult Index(string str)
     {
         List <Slider> sliders= _context.Sliders.ToList();
         List<Category> categories = _context.Categories.ToList();
         List<Furniture>furnitures= _context.Furnitures.ToList();
         List<WishlistItem> wishlistItems=_context.WishlistItems.ToList();
-
         HomeVM vm = new HomeVM
         {
             Sliders = sliders,
@@ -28,6 +27,17 @@ public class HomeController : Controller
             Furnitures=furnitures,
             wishlistItems=wishlistItems
         };
+
+
+
+        if (str!=null) 
+        {
+
+            List<Furniture> Serach = _context.Furnitures.Include(x => x.Furnitureimages).Where(x => x.Name.Trim().ToLower().Contains(str)).ToList();
+            vm.Furnitures = Serach;
+
+
+        }
         return View(vm);
     }
     public async Task<IActionResult> Faq()

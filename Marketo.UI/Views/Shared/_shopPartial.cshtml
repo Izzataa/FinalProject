@@ -22,12 +22,7 @@
                                 <i class="fa-solid fa-basket-shopping"></i>
                             </a>
                         }
-                        <a asp-controller="shop" asp-action="ModalShopView" asp-route-id="@furniture.Id" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                           id="viewbtn"
-                           class="btn--e-brand d-flex" data-modal="modal"
-                           data-modal-id="#add-to-cart">
-                            <i class="fa-regular fa-eye"></i>
-                        </a>
+                       
                         <a asp-controller="wishlist" asp-action="AddWishlist" class="btn--e-brand d-flex wishlistFetch" asp-route-id="@furniture.Id" data-modal="modal"
                            data-modal-id="#add-to-cart">
                             <i class="fa-regular fa-heart"></i>

@@ -6,6 +6,11 @@
 	text-decoration: none;
 	font-family: Roboto;
 	font-family: Arial, Helvetica, sans-serif;
+	
+	
+}
+html {
+	scroll-behavior: smooth;
 }
 .dropbtn {
 	border: 1px solid #F9F9F9;
@@ -16,6 +21,7 @@
 	font-size: 16px;
 	margin-bottom: 1rem;
 	border: none;
+	margin-right:1rem;
 	cursor: pointer;
 }
 
@@ -49,7 +55,7 @@
 }
 
 .dropdown:hover .dropbtn {
-	background-color: #064ACB;
+	background-color: #f07f13;
 	color: white;
 }
 
@@ -5663,4 +5669,98 @@ body {
 			padding: 4px 4px;
 		}
 }
-/*# sourceMappingURL=style.css.map */
+ .wrapper {
+	margin-bottom: 35px;
+}
+
+ .wrapper button {
+		background-color: #9d9d9d;
+		color: #fff;
+		padding: 0 30px;
+		height: 40px;
+		font-size: 0.8125rem;
+		letter-spacing: 0.1rem;
+		font-weight: 700;
+		border-radius: 30px;
+		-webkit-transition: 0.4s;
+		transition: 0.4s;
+		margin-top: 2rem;
+		border: none;
+	}
+
+ .wrapper button:hover {
+			color: #fff;
+			background-color: #6a6a6a;
+		}
+
+ .wrapper .price-input {
+		width: 100%;
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		margin: 30px 0 35px;
+	}
+
+		.wrapper .price-input .field {
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: flex;
+			width: 100%;
+			height: 45px;
+			-webkit-box-align: center;
+			-ms-flex-align: center;
+			align-items: center;
+		}
+
+ .wrapper .price-input .separator {
+			width: 130px;
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: flex;
+			font-size: 19px;
+			-webkit-box-align: center;
+			-ms-flex-align: center;
+			align-items: center;
+			-webkit-box-pack: center;
+			-ms-flex-pack: center;
+			justify-content: center;
+		}
+
+ .wrapper .field input {
+		width: 100%;
+		height: 100%;
+		outline: none;
+		font-size: 19px;
+
+		margin-left: 12px;
+		border-radius: 5px;
+		text-align: center;
+		border: 1px solid #999;
+		-moz-appearance: textfield;
+	}
+/* Style for the input elements */
+/* Style for the input elements */
+input[type="number"].input-min,
+input[type="range"].range-min,
+input[type="number"].input-max,
+input[type="range"].range-max {
+	width: 60px; /* Adjust the width as needed */
+	margin: 5px;
+	border: 1px solid #ccc; /* Set the default border color */
+}
+
+	/* Style for the active range input */
+	input[type="range"].range-min:active,
+	input[type="range"].range-min:focus,
+	input[type="range"].range-max:active,
+	input[type="range"].range-max:focus {
+		outline: none; /* Remove default focus outline */
+		border-color: #f07f13 !important; /* Change border color when the range input is active */
+	}
+
+	/* Style for the focused number input */
+	input[type="number"].input-min:focus,
+	input[type="number"].input-max:focus {
+		outline: none; /* Remove default focus outline */
+		border-color: #f07f13 !important; /* Change border color when the number input is focused */
+	}

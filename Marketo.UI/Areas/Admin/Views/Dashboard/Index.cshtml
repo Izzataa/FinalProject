@@ -158,12 +158,14 @@
 <!-- main-panel ends -->
 <script>
 
+    var chart;
+
     $(function () {
-        var chart = Highcharts.chart('salaryChart', {
+        // Initialize the chart only once
+        chart = Highcharts.chart('salaryChart', {
             chart: {
                 type: 'line',
             },
-
             xAxis: {
                 type: 'datetime',
             },
@@ -177,16 +179,16 @@
                 data: [],
             }],
         });
+
         const connection = new signalR.HubConnectionBuilder()
             .withUrl("/ChatHub")
             .build();
 
-        connection.on("SendSalary", (salary) => {
+        connection.on("SendSalary", (salary,date) => {
             console.log('Received OrderSalary:', salary);
             var value = salary;
-            updateChart(value);
+            updateSginlrData(value,date);
         });
-
 
     @foreach (var item in Model.Orders)
     {
@@ -195,7 +197,6 @@
         </text>
     }
 
-
             connection.start()
                 .then(function () {
                     console.log('SignalR connected');
@@ -203,13 +204,32 @@
                 .catch(function (err) {
                     console.error('SignalR connection error:', err.toString());
                 });
+    });
 
-        function updateChart(data) {
+    function updateChart(data, Date) {
+        // Ensure the chart is initialized before accessing series
+        if (chart) {
             var series = chart.series[0];
             var shift = series.data.length > 20;
-            series.addPoint([new Date().getTime(), data], true, shift);
 
+            if (Date === null || Date === undefined) {
+                // If Date is not provided or is null, use the current time
+                series.addPoint([new Date().getTime(), data], true, shift);
+            } else {
+                // If Date is provided, use the specified Date
+                series.addPoint([Date, data], true, shift);
+            }
         }
+    }
 
-    });
+    function updateSginlrData(newSalary, Date) {
+        // Ensure the chart is initialized before accessing series
+        if (chart) {
+            var series = chart.series[0];
+
+            // Add the new point
+            var shift = series.data.length > 20;
+            series.addPoint([Date, newSalary], true, shift);
+        }
+    }
 </script>

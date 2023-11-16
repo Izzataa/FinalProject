@@ -105,8 +105,11 @@
                                                 </bdi>
                                             </span>
                                         </span>
-                                        <a asp-controller="Cart" asp-action="AddBasket" asp-route-id="@furniture.Id" class="btn btn-default addToCart" onclick="">Add To Cart</a>
-                                       @if (Model.wishlistItems.FirstOrDefault(w=>w.FurnitureId==furniture.Id)==null)
+                                        @if(furniture.Stock==true){
+                                            <a asp-controller="Cart" asp-action="AddBasket" asp-route-id="@furniture.Id" class="btn btn-default addToCart" onclick="">Add To Cart</a>
+
+                                        }
+                                        @if (Model.wishlistItems.FirstOrDefault(w=>w.FurnitureId==furniture.Id)==null)
                                         {
                                             <div class="hover-area text-center" id="text">
                                                 <a onclick="changeColor();" style="text-decoration:none; background-color: red; color: green; position:relative;" class="wishlistFetch" asp-controller="wishlist" asp-action="AddWishlist" asp-route-id="@furniture.Id">
@@ -165,7 +168,11 @@
                                                 </bdi>
                                             </span>
                                         </span>
-                                        <a asp-controller="Cart" asp-action="AddBasket" asp-route-id="@furniture.Id" class="btn btn-default addToCart" onclick="">Add To Cart</a>
+                                        @if (furniture.Stock == true)
+                                        {
+                                            <a asp-controller="Cart" asp-action="AddBasket" asp-route-id="@furniture.Id" class="btn btn-default addToCart" onclick="">Add To Cart</a>
+
+                                        }a>
                                         <div class="hover-area text-center" id="text">
                                             <a style="text-decoration:none; background-color: red; color: green; position:relative;" class="wishlistFetch" asp-controller="wishlist" asp-action="AddWishlist" asp-route-id="@furniture.Id">
                                                 <i style="font-size: 18px; position: absolute;
@@ -210,7 +217,11 @@
                                                 </bdi>
                                             </span>
                                         </span>
-                                        <a asp-controller="Cart" asp-action="AddBasket" asp-route-id="@furniture.Id" class="btn btn-default addToCart" onclick="">Add To Cart</a>
+                                        @if (furniture.Stock == true)
+                                        {
+                                            <a asp-controller="Cart" asp-action="AddBasket" asp-route-id="@furniture.Id" class="btn btn-default addToCart" onclick="">Add To Cart</a>
+
+                                        }
                                         <div class="hover-area text-center" id="text">
                                             <a style="text-decoration:none; background-color: red; color: green; position:relative;" class="wishlistFetch" asp-controller="wishlist" asp-action="AddWishlist" asp-route-id="@furniture.Id">
                                                 <i style="font-size: 18px; position: absolute;
@@ -255,7 +266,11 @@
                                                 </bdi>
                                             </span>
                                         </span>
-                                        <a asp-controller="Cart" asp-action="AddBasket" asp-route-id="@furniture.Id" class="btn btn-default addToCart" onclick="">Add To Cart</a>
+                                        @if (furniture.Stock == true)
+                                        {
+                                            <a asp-controller="Cart" asp-action="AddBasket" asp-route-id="@furniture.Id" class="btn btn-default addToCart" onclick="">Add To Cart</a>
+
+                                        }
                                         <div class="hover-area text-center" id="text">
                                             <a style="text-decoration:none; background-color: red; color: green; position:relative;" class="wishlistFetch" asp-controller="wishlist" asp-action="AddWishlist" asp-route-id="@furniture.Id">
                                                 <i style="font-size: 18px; position: absolute;
@@ -443,7 +458,7 @@
     <section class="category-top">
         <div class="container">
             <h2>
-                Top Categories This Week
+               Bed Categories
             </h2>
             <div class="row heavy mt-1">
                 <div class="col-lg-6">
@@ -465,21 +480,7 @@
                 </div>
                 <div class="col-lg-6 xs-padding-0">
                     <div class="row xs-margin-0">
-                        <div class="col-md-6">
-                            <div class="feature-product1">
-                                <img src="~/assets/image/chair/chair-1.jpg" class="img-fluid" alt="">
-                                <div class="feature-info">
-                                    <h4 class="product-title-1">
-                                        <a href="">chair</a>
-                                    </h4>
-                                    <h4 class="product-title-2">
-                                        <strong>
-                                            <a href="">Xpeed Wheel Rim</a>
-                                        </strong>
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
+               
                         @{
                             bool test = false;
                         }
@@ -493,7 +494,7 @@
                                         <img src="~/assets/image/shop/@furniture.Image" class="img-fluid" alt="...">
                                         <div class="feature-info">
                                             <h4 class="product-title-1">
-                                                <a href="">chair</a>
+                                                
                                             </h4>
                                             <h4 class="product-title-2">
                                                 <strong>

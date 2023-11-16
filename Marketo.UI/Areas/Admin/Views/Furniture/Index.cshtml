@@ -93,7 +93,7 @@
                 @if (ViewBag.CurentPage > 1)
                 {
                     <li class="page-item " style="width: 55px;">
-                        <a class="page-link page-numbers current btnn" asp-area="AdminPanel" asp-controller="furniture" asp-action="index" asp-route-page="ViewBag.CurentPage-1">Prev</a>
+                        <a class="page-link page-numbers current btnn" asp-area="Admin" asp-controller="furniture" asp-action="index" asp-route-page="ViewBag.CurentPage-1">Prev</a>
                     </li>
                 }
                 @for (int i = 1; i <= ViewBag.TotalPage; i++)
@@ -112,7 +112,7 @@
                 @if (ViewBag.CurentPage < ViewBag.TotalPage)
                 {
                     <li class="page-item" style="width: 55px;">
-                        <a class="page-link page-numbers btnn" asp-area="AdminPanel" asp-controller="furniture" asp-action="index" asp-route-page="ViewBag.CurentPage-1">Next</a>
+                        <a class="page-link page-numbers btnn" asp-area="Admin" asp-controller="furniture" asp-action="index" asp-route-page="ViewBag.CurentPage-1">Next</a>
 
                     </li>
                 }
